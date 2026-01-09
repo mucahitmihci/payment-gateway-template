@@ -51,6 +51,9 @@ if (isset($_POST["data"])) {
   // The resulting JSON from payment request will be in $order variable
   $order = getEcwidPayload($client_secret, $ecwid_payload);
 
+  // Enable Klaviyo tracking if configured
+  $enable_klaviyo = isset($order['merchantAppSettings']['enableKlaviyo']) && $order['merchantAppSettings']['enableKlaviyo'] === 'true';
+
   // Debug preview of the request decoded earlier
   echo "<h3>REQUEST DETAILS</h3>";
 
@@ -111,9 +114,16 @@ if (isset($_POST["data"])) {
             foreach ($request as $name => $value) {
                 echo "<input type='hidden' name='$name' value='$value'></input>";
             }
-        echo "<input type='submit' value='Submit'>";    
+        echo "<input type='submit' value='Submit'>";
         echo "</form>";
-        echo "<script>document.querySelector('#payment_form).submit();</script>";
+
+        // Include Klaviyo tracking if enabled
+        if ($enable_klaviyo && isset($order['merchantAppSettings']['klaviyoApiKey']) && !empty($order['merchantAppSettings']['klaviyoApiKey'])) {
+            $klaviyo_public_key = $order['merchantAppSettings']['klaviyoApiKey'];
+            include('klaviyo-tracking.php');
+        }
+
+        echo "<script>document.querySelector('#payment_form').submit();</script>";
 
 }
 
@@ -162,6 +172,16 @@ if (isset($_GET["callbackPayload"]) && isset($_GET["status"])) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
     curl_close($ch);
+
+    // Track successful order in Klaviyo if payment was successful
+    if ($status === 'PAID') {
+        echo "<!-- Klaviyo Placed Order Event -->";
+        echo "<script type='text/javascript'>
+        if (typeof trackKlaviyoPlacedOrder === 'function') {
+            trackKlaviyoPlacedOrder();
+        }
+        </script>";
+    }
 
     // return customer back to storefront
     echo "<script>window.location = '$returnUrl'</script>";

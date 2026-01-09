@@ -138,6 +138,8 @@ var initialConfig = {
 		APIsecret: "",
 		endpointUrl: "https://secure2.authorize.net/gateway/transact.dll",
 		testMode: "true",
+		enableKlaviyo: "false",
+		klaviyoApiKey: "",
 		installed: "yes"
 	},
 	public: {}
