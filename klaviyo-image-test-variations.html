@@ -1,0 +1,32 @@
+<!-- Image Field Test Variations -->
+{% if feeds.Muca_test|index:1 %}
+{% with item=feeds.Muca_test|index:1 %}
+
+<div style="background: #f0f0f0; padding: 20px; margin: 20px;">
+    <h3>Test Image Variations:</h3>
+
+    <p><strong>Variation 1 - item.ImageURL:</strong></p>
+    <img src="{{ item.ImageURL }}" alt="Test 1" style="max-width: 200px; border: 2px solid red;">
+    <p>URL: {{ item.ImageURL }}</p>
+
+    <hr>
+
+    <p><strong>Variation 2 - item.imageurl (lowercase):</strong></p>
+    <img src="{{ item.imageurl }}" alt="Test 2" style="max-width: 200px; border: 2px solid blue;">
+    <p>URL: {{ item.imageurl }}</p>
+
+    <hr>
+
+    <p><strong>Variation 3 - item.image_url:</strong></p>
+    <img src="{{ item.image_url }}" alt="Test 3" style="max-width: 200px; border: 2px solid green;">
+    <p>URL: {{ item.image_url }}</p>
+
+    <hr>
+
+    <p><strong>Variation 4 - Direct access without item:</strong></p>
+    <img src="{{ ImageURL }}" alt="Test 4" style="max-width: 200px; border: 2px solid orange;">
+    <p>URL: {{ ImageURL }}</p>
+</div>
+
+{% endwith %}
+{% endif %}
