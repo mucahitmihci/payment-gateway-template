@@ -1,0 +1,27 @@
+<!-- Simple Image Test -->
+{% if feeds.Muca_test|index:1 %}
+{% with item=feeds.Muca_test|index:1 %}
+
+<div style="background: white; padding: 20px; margin: 20px; border: 2px solid black;">
+    <h3>Image Test:</h3>
+
+    <p><strong>Title:</strong> {{ item.title }}</p>
+    <p><strong>Image Link Value:</strong> {{ item.image_link }}</p>
+    <p><strong>Link Value:</strong> {{ item.link }}</p>
+
+    <hr>
+
+    <p><strong>Image Display Test:</strong></p>
+    <img src="{{ item.image_link }}" alt="{{ item.title }}" style="max-width: 300px; border: 2px solid red;">
+
+    <hr>
+
+    <p><strong>With {% with %} assignment:</strong></p>
+    {% with ImageURL=item.image_link %}
+    <p>ImageURL value: {{ ImageURL }}</p>
+    <img src="{{ ImageURL }}" alt="Test" style="max-width: 300px; border: 2px solid blue;">
+    {% endwith %}
+</div>
+
+{% endwith %}
+{% endif %}
