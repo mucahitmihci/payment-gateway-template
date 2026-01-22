@@ -1,0 +1,36 @@
+<!-- Feed Access Test -->
+<div style="background: white; padding: 20px; margin: 20px; border: 2px solid black;">
+    <h3>Feed Access Test:</h3>
+
+    <p><strong>Test 1 - Does feed exist?</strong></p>
+    {% if feeds.Muca_test %}
+        <p style="color: green;">✓ Feed exists!</p>
+    {% else %}
+        <p style="color: red;">✗ Feed NOT found</p>
+    {% endif %}
+
+    <hr>
+
+    <p><strong>Test 2 - First item direct access:</strong></p>
+    <p>Title: {{ feeds.Muca_test.0.title }}</p>
+    <p>Image: {{ feeds.Muca_test.0.image_link }}</p>
+
+    <hr>
+
+    <p><strong>Test 3 - Using index filter:</strong></p>
+    {% if feeds.Muca_test|index:0 %}
+        <p>Title: {{ feeds.Muca_test|index:0|lookup:'title' }}</p>
+    {% else %}
+        <p style="color: red;">Index 0 not found</p>
+    {% endif %}
+
+    <hr>
+
+    <p><strong>Test 4 - Loop through feed:</strong></p>
+    {% for item in feeds.Muca_test %}
+        <p>{{ forloop.counter }}. {{ item.title }}</p>
+        {% if forloop.counter == 1 %}
+            {% break %}
+        {% endif %}
+    {% endfor %}
+</div>

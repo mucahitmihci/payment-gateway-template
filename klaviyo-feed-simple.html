@@ -1,0 +1,15 @@
+<!-- Simplest Feed Test -->
+<div style="padding: 20px; background: white; border: 2px solid black;">
+    <h3>Simplest Test:</h3>
+
+    <p><strong>Direct access - Index 0:</strong></p>
+    <p>Title: {{ feeds.Muca_test.0.title }}</p>
+    <p>Price: {{ feeds.Muca_test.0.price }}</p>
+    <p>Image Link: {{ feeds.Muca_test.0.image_link }}</p>
+    <p>Link: {{ feeds.Muca_test.0.link }}</p>
+
+    <hr>
+
+    <p><strong>Image test:</strong></p>
+    <img src="{{ feeds.Muca_test.0.image_link }}" alt="Product" style="max-width: 200px; border: 2px solid red;">
+</div>
