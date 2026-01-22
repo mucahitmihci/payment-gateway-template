@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>Product Recommendations</title>
+
+    <style>
+        /* Reset styles */
+        html, body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* General styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333333;
+        }
+
+        table {
+            border-spacing: 0;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        td {
+            padding: 0;
+        }
+
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* Container styles */
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Product card styles */
+        .product-card {
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333333;
+            margin: 0 0 10px 0;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c5f2d;
+            margin: 10px 0;
+        }
+
+        .product-compare-price {
+            font-size: 16px;
+            color: #999999;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .product-cta {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .product-cta:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+            }
+
+            .product-details {
+                padding: 15px !important;
+            }
+
+            .product-title {
+                font-size: 16px !important;
+            }
+
+            .product-price {
+                font-size: 18px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <center style="width: 100%; background-color: #f4f4f4;">
+        <div style="max-width: 600px; margin: 0 auto;" class="email-container">
+
+            <!-- Email Header -->
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+                <tr>
+                    <td style="padding: 20px 0; text-align: center;">
+                        <h1 style="margin: 0; font-size: 24px; font-weight: 700; color: #333333;">
+                            Recommended For You
+                        </h1>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Product Feed Loop -->
+            {% if feeds.Muca_test|index:1 %}
+            {% with item=feeds.Muca_test|index:1 %}
+            {% with Title=item.title|safe Price=item.price|default:"" Compare_at=item.regular_price|default:"" Image=item.image_url|default:"" Link=item.url|default:"" Description=item.description|default:""|safe %}
+
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+                <tr>
+                    <td style="padding: 10px;">
+                        <div class="product-card">
+                            <!-- Product Image -->
+                            {% if Image %}
+                            <a href="{{ Link }}" style="display: block;">
+                                <img src="{{ Image }}" alt="{{ Title }}" class="product-image" style="width: 100%; height: auto; display: block;">
+                            </a>
+                            {% endif %}
+
+                            <!-- Product Details -->
+                            <div class="product-details">
+                                <h2 class="product-title">{{ Title }}</h2>
+
+                                {% if Description %}
+                                <p style="font-size: 14px; color: #666666; line-height: 1.6; margin: 10px 0;">
+                                    {{ Description }}
+                                </p>
+                                {% endif %}
+
+                                <!-- Price -->
+                                <div style="margin: 15px 0;">
+                                    {% if Price %}
+                                    <span class="product-price">{{ Price }}</span>
+                                    {% endif %}
+
+                                    {% if Compare_at and Compare_at != Price %}
+                                    <span class="product-compare-price">{{ Compare_at }}</span>
+                                    {% endif %}
+                                </div>
+
+                                <!-- CTA Button -->
+                                {% if Link %}
+                                <a href="{{ Link }}" class="product-cta" style="display: inline-block; padding: 12px 30px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: 600;">
+                                    Shop Now
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            {% endwith %}
+            {% endwith %}
+            {% endif %}
+
+            <!-- Additional Product Feed Items (2-4) -->
+            {% if feeds.Muca_test|index:2 %}
+            {% with item=feeds.Muca_test|index:2 %}
+            {% with Title=item.title|safe Price=item.price|default:"" Compare_at=item.regular_price|default:"" Image=item.image_url|default:"" Link=item.url|default:"" %}
+
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+                <tr>
+                    <td style="padding: 10px;">
+                        <div class="product-card">
+                            {% if Image %}
+                            <a href="{{ Link }}" style="display: block;">
+                                <img src="{{ Image }}" alt="{{ Title }}" class="product-image" style="width: 100%; height: auto; display: block;">
+                            </a>
+                            {% endif %}
+
+                            <div class="product-details">
+                                <h2 class="product-title">{{ Title }}</h2>
+
+                                <div style="margin: 15px 0;">
+                                    {% if Price %}
+                                    <span class="product-price">{{ Price }}</span>
+                                    {% endif %}
+
+                                    {% if Compare_at and Compare_at != Price %}
+                                    <span class="product-compare-price">{{ Compare_at }}</span>
+                                    {% endif %}
+                                </div>
+
+                                {% if Link %}
+                                <a href="{{ Link }}" class="product-cta" style="display: inline-block; padding: 12px 30px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: 600;">
+                                    Shop Now
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            {% endwith %}
+            {% endwith %}
+            {% endif %}
+
+            {% if feeds.Muca_test|index:3 %}
+            {% with item=feeds.Muca_test|index:3 %}
+            {% with Title=item.title|safe Price=item.price|default:"" Compare_at=item.regular_price|default:"" Image=item.image_url|default:"" Link=item.url|default:"" %}
+
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+                <tr>
+                    <td style="padding: 10px;">
+                        <div class="product-card">
+                            {% if Image %}
+                            <a href="{{ Link }}" style="display: block;">
+                                <img src="{{ Image }}" alt="{{ Title }}" class="product-image" style="width: 100%; height: auto; display: block;">
+                            </a>
+                            {% endif %}
+
+                            <div class="product-details">
+                                <h2 class="product-title">{{ Title }}</h2>
+
+                                <div style="margin: 15px 0;">
+                                    {% if Price %}
+                                    <span class="product-price">{{ Price }}</span>
+                                    {% endif %}
+
+                                    {% if Compare_at and Compare_at != Price %}
+                                    <span class="product-compare-price">{{ Compare_at }}</span>
+                                    {% endif %}
+                                </div>
+
+                                {% if Link %}
+                                <a href="{{ Link }}" class="product-cta" style="display: inline-block; padding: 12px 30px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: 600;">
+                                    Shop Now
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            {% endwith %}
+            {% endwith %}
+            {% endif %}
+
+            {% if feeds.Muca_test|index:4 %}
+            {% with item=feeds.Muca_test|index:4 %}
+            {% with Title=item.title|safe Price=item.price|default:"" Compare_at=item.regular_price|default:"" Image=item.image_url|default:"" Link=item.url|default:"" %}
+
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+                <tr>
+                    <td style="padding: 10px;">
+                        <div class="product-card">
+                            {% if Image %}
+                            <a href="{{ Link }}" style="display: block;">
+                                <img src="{{ Image }}" alt="{{ Title }}" class="product-image" style="width: 100%; height: auto; display: block;">
+                            </a>
+                            {% endif %}
+
+                            <div class="product-details">
+                                <h2 class="product-title">{{ Title }}</h2>
+
+                                <div style="margin: 15px 0;">
+                                    {% if Price %}
+                                    <span class="product-price">{{ Price }}</span>
+                                    {% endif %}
+
+                                    {% if Compare_at and Compare_at != Price %}
+                                    <span class="product-compare-price">{{ Compare_at }}</span>
+                                    {% endif %}
+                                </div>
+
+                                {% if Link %}
+                                <a href="{{ Link }}" class="product-cta" style="display: inline-block; padding: 12px 30px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 4px; font-weight: 600;">
+                                    Shop Now
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            {% endwith %}
+            {% endwith %}
+            {% endif %}
+
+            <!-- Email Footer -->
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+                <tr>
+                    <td style="padding: 30px 20px; text-align: center; font-size: 12px; color: #999999;">
+                        <p style="margin: 0 0 10px 0;">
+                            You're receiving this email because you subscribed to our mailing list.
+                        </p>
+                        <p style="margin: 0;">
+                            <a href="{% unsubscribe_link %}" style="color: #007bff; text-decoration: underline;">Unsubscribe</a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </center>
+</body>
+</html>
