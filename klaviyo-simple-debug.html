@@ -1,0 +1,20 @@
+<!-- Simple Debug - Show ImageURL Value -->
+{% if feeds.Muca_test|index:1 %}
+{% with item=feeds.Muca_test|index:1 %}
+
+<div style="background: white; padding: 20px; margin: 20px; border: 2px solid black;">
+    <h3>Debug Info:</h3>
+    <p><strong>Title:</strong> {{ item.title }}</p>
+    <p><strong>Price:</strong> {{ item.price }}</p>
+    <p><strong>URL:</strong> {{ item.url }}</p>
+    <p><strong>ImageURL value:</strong> "{{ item.ImageURL }}"</p>
+    <p><strong>Is ImageURL empty?</strong> {% if item.ImageURL %}NO{% else %}YES{% endif %}</p>
+
+    <hr>
+
+    <p>Trying to display image:</p>
+    <img src="{{ item.ImageURL }}" alt="Test" style="max-width: 300px; border: 2px solid red;">
+</div>
+
+{% endwith %}
+{% endif %}
