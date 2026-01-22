@@ -1,0 +1,24 @@
+<!-- Debug Version - Shows Available Feed Fields -->
+{% if feeds.Muca_test|index:1 %}
+{% with item=feeds.Muca_test|index:1 %}
+
+<div style="background: #f0f0f0; padding: 20px; margin: 20px; border: 2px solid #333;">
+    <h3>DEBUG: Available Feed Fields</h3>
+    <p><strong>Title:</strong> {{ item.title }}</p>
+    <p><strong>Price:</strong> {{ item.price }}</p>
+    <p><strong>Regular Price:</strong> {{ item.regular_price }}</p>
+    <p><strong>Image URL:</strong> {{ item.image_url }}</p>
+    <p><strong>ImageURL:</strong> {{ item.ImageURL }}</p>
+    <p><strong>Image:</strong> {{ item.image }}</p>
+    <p><strong>URL:</strong> {{ item.url }}</p>
+    <p><strong>Link:</strong> {{ item.link }}</p>
+    <p><strong>Description:</strong> {{ item.description }}</p>
+
+    <hr>
+
+    <h4>Raw Item Data:</h4>
+    <pre>{{ item }}</pre>
+</div>
+
+{% endwith %}
+{% endif %}
