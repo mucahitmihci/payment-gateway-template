@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>{{ email.subject }}</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    /* Reset */
+    * { box-sizing: border-box; }
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #f4f4f4; }
+
+    /* Wrapper */
+    .email-wrapper { width: 100%; background-color: #f4f4f4; }
+    .email-container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+
+    /* Header */
+    .header { background-color: #1a1a2e; padding: 24px 40px; text-align: center; }
+    .header img { max-height: 48px; }
+
+    /* Hero */
+    .hero { background-color: #16213e; padding: 40px; text-align: center; }
+    .hero h1 { color: #ffffff; font-family: Arial, sans-serif; font-size: 26px; font-weight: 700; margin: 0 0 12px; line-height: 1.3; }
+    .hero p { color: #a8b2d0; font-family: Arial, sans-serif; font-size: 15px; margin: 0; line-height: 1.6; }
+
+    /* Section Title */
+    .section-title { padding: 32px 40px 8px; text-align: center; }
+    .section-title h2 { font-family: Arial, sans-serif; font-size: 20px; font-weight: 700; color: #1a1a2e; margin: 0 0 6px; }
+    .section-title p { font-family: Arial, sans-serif; font-size: 14px; color: #6b7280; margin: 0; }
+
+    /* Product Grid */
+    .product-grid { padding: 20px 24px 8px; }
+    .product-row { width: 100%; border-collapse: separate; border-spacing: 12px 0; margin-bottom: 12px; }
+
+    /* Product Card */
+    .product-card { width: 33.33%; vertical-align: top; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+    .product-card-inner { padding: 0; }
+    .product-image-wrap { display: block; width: 100%; overflow: hidden; border-radius: 8px 8px 0 0; }
+    .product-image-wrap img { width: 100%; height: 160px; object-fit: cover; display: block; }
+    .product-info { padding: 12px; }
+    .product-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin: 0 0 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .product-prices { margin: 0 0 10px; }
+    .product-price { font-family: Arial, sans-serif; font-size: 15px; font-weight: 700; color: #e11d48; margin: 0; }
+    .product-original-price { font-family: Arial, sans-serif; font-size: 12px; color: #9ca3af; text-decoration: line-through; margin: 2px 0 0; }
+    .product-discount-badge { display: inline-block; background-color: #fef2f2; color: #e11d48; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-bottom: 10px; }
+    .product-cta { display: block; width: 100%; background-color: #1a1a2e; color: #ffffff !important; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; text-align: center; text-decoration: none; padding: 8px 4px; border-radius: 0 0 6px 6px; letter-spacing: 0.5px; }
+    .product-cta:hover { background-color: #16213e; }
+
+    /* Single featured product */
+    .product-featured { padding: 24px 40px; }
+    .product-featured-card { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
+    .product-featured-card table { width: 100%; border-collapse: collapse; }
+    .product-featured-image { width: 220px; padding: 0; vertical-align: top; }
+    .product-featured-image img { width: 220px; height: 220px; object-fit: cover; display: block; }
+    .product-featured-details { padding: 24px 20px; vertical-align: middle; }
+    .product-featured-tag { display: inline-block; background-color: #ede9fe; color: #7c3aed; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; }
+    .product-featured-name { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: #1a1a2e; margin: 0 0 8px; line-height: 1.4; }
+    .product-featured-desc { font-family: Arial, sans-serif; font-size: 13px; color: #6b7280; margin: 0 0 16px; line-height: 1.6; }
+    .product-featured-price { font-family: Arial, sans-serif; font-size: 22px; font-weight: 700; color: #e11d48; margin: 0 0 4px; }
+    .product-featured-original { font-family: Arial, sans-serif; font-size: 14px; color: #9ca3af; text-decoration: line-through; margin: 0 0 16px; }
+    .product-featured-btn { display: inline-block; background-color: #7c3aed; color: #ffffff !important; font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; text-decoration: none; padding: 10px 24px; border-radius: 6px; }
+
+    /* Divider */
+    .divider { height: 1px; background-color: #e5e7eb; margin: 0 40px; }
+
+    /* Footer */
+    .footer { padding: 28px 40px; background-color: #1a1a2e; text-align: center; }
+    .footer p { font-family: Arial, sans-serif; font-size: 12px; color: #6b7aad; margin: 0 0 6px; line-height: 1.6; }
+    .footer a { color: #a8b2d0; text-decoration: underline; }
+    .footer .unsubscribe { margin-top: 14px; }
+
+    /* Responsive */
+    @media screen and (max-width: 600px) {
+      .email-container { width: 100% !important; }
+      .hero { padding: 28px 20px !important; }
+      .hero h1 { font-size: 20px !important; }
+      .section-title { padding: 24px 20px 8px !important; }
+      .product-grid { padding: 12px !important; }
+      .product-row { border-spacing: 8px 0 !important; }
+      .product-name { font-size: 12px !important; }
+      .product-price { font-size: 13px !important; }
+      .product-featured { padding: 16px 20px !important; }
+      .product-featured-image { display: none !important; width: 0 !important; }
+      .product-featured-details { padding: 16px !important; }
+      .product-featured-name { font-size: 16px !important; }
+      .footer { padding: 20px !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="email-wrapper">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td align="center" style="padding: 20px 0;">
+
+        <!-- Email Container -->
+        <table class="email-container" role="presentation" width="600" cellpadding="0" cellspacing="0" border="0">
+
+          <!-- ===================== HEADER ===================== -->
+          <tr>
+            <td class="header">
+              <a href="{{ store.url }}" target="_blank">
+                <img src="{{ store.logo_url }}" alt="{{ store.name }}" width="140" />
+              </a>
+            </td>
+          </tr>
+
+          <!-- ===================== HERO ===================== -->
+          <tr>
+            <td class="hero">
+              <h1>{{ email.headline | default: "Products picked just for you" }}</h1>
+              <p>{{ email.subheadline | default: "Discover our latest recommendations based on your interests." }}</p>
+            </td>
+          </tr>
+
+          <!-- ===================== FEATURED PRODUCT ===================== -->
+          <tr>
+            <td class="product-featured">
+              <div class="product-featured-card">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td class="product-featured-image">
+                      <a href="{{ products[0].url }}" target="_blank">
+                        <img src="{{ products[0].image_url }}" alt="{{ products[0].name }}" width="220" height="220" />
+                      </a>
+                    </td>
+                    <td class="product-featured-details">
+                      <span class="product-featured-tag">Featured Pick</span>
+                      <p class="product-featured-name">{{ products[0].name }}</p>
+                      <p class="product-featured-desc">{{ products[0].short_description }}</p>
+                      <p class="product-featured-price">{{ products[0].currency }}{{ products[0].price }}</p>
+                      {% if products[0].original_price != products[0].price %}
+                      <p class="product-featured-original">{{ products[0].currency }}{{ products[0].original_price }}</p>
+                      {% endif %}
+                      <a href="{{ products[0].url }}" class="product-featured-btn" target="_blank">Shop Now</a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+
+          <!-- ===================== PRODUCT GRID TITLE ===================== -->
+          <tr>
+            <td class="section-title">
+              <h2>{{ section.title | default: "More You'll Love" }}</h2>
+              <p>{{ section.subtitle | default: "Hand-picked recommendations for you" }}</p>
+            </td>
+          </tr>
+
+          <!-- ===================== PRODUCT GRID (3 columns) ===================== -->
+          <tr>
+            <td class="product-grid">
+              <table role="presentation" class="product-row" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+
+                  <!-- Product Card 1 -->
+                  {% assign p = products[1] %}
+                  <td class="product-card">
+                    <a class="product-image-wrap" href="{{ p.url }}" target="_blank">
+                      <img src="{{ p.image_url }}" alt="{{ p.name }}" />
+                    </a>
+                    <div class="product-info">
+                      <p class="product-name">{{ p.name }}</p>
+                      {% if p.discount_rate > 0 %}
+                      <span class="product-discount-badge">-{{ p.discount_rate }}%</span>
+                      {% endif %}
+                      <div class="product-prices">
+                        <p class="product-price">{{ p.currency }}{{ p.price }}</p>
+                        {% if p.original_price != p.price %}
+                        <p class="product-original-price">{{ p.currency }}{{ p.original_price }}</p>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <a href="{{ p.url }}" class="product-cta" target="_blank">View Product</a>
+                  </td>
+
+                  <!-- Product Card 2 -->
+                  {% assign p = products[2] %}
+                  <td class="product-card">
+                    <a class="product-image-wrap" href="{{ p.url }}" target="_blank">
+                      <img src="{{ p.image_url }}" alt="{{ p.name }}" />
+                    </a>
+                    <div class="product-info">
+                      <p class="product-name">{{ p.name }}</p>
+                      {% if p.discount_rate > 0 %}
+                      <span class="product-discount-badge">-{{ p.discount_rate }}%</span>
+                      {% endif %}
+                      <div class="product-prices">
+                        <p class="product-price">{{ p.currency }}{{ p.price }}</p>
+                        {% if p.original_price != p.price %}
+                        <p class="product-original-price">{{ p.currency }}{{ p.original_price }}</p>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <a href="{{ p.url }}" class="product-cta" target="_blank">View Product</a>
+                  </td>
+
+                  <!-- Product Card 3 -->
+                  {% assign p = products[3] %}
+                  <td class="product-card">
+                    <a class="product-image-wrap" href="{{ p.url }}" target="_blank">
+                      <img src="{{ p.image_url }}" alt="{{ p.name }}" />
+                    </a>
+                    <div class="product-info">
+                      <p class="product-name">{{ p.name }}</p>
+                      {% if p.discount_rate > 0 %}
+                      <span class="product-discount-badge">-{{ p.discount_rate }}%</span>
+                      {% endif %}
+                      <div class="product-prices">
+                        <p class="product-price">{{ p.currency }}{{ p.price }}</p>
+                        {% if p.original_price != p.price %}
+                        <p class="product-original-price">{{ p.currency }}{{ p.original_price }}</p>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <a href="{{ p.url }}" class="product-cta" target="_blank">View Product</a>
+                  </td>
+
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ===================== SECOND PRODUCT ROW (optional loop) ===================== -->
+          <!--
+            To render a dynamic number of products using Insider's loop syntax:
+
+            {% for product in products offset: 4 limit: 3 %}
+            <td class="product-card">
+              <a class="product-image-wrap" href="{{ product.url }}" target="_blank">
+                <img src="{{ product.image_url }}" alt="{{ product.name }}" />
+              </a>
+              <div class="product-info">
+                <p class="product-name">{{ product.name }}</p>
+                {% if product.discount_rate > 0 %}
+                <span class="product-discount-badge">-{{ product.discount_rate }}%</span>
+                {% endif %}
+                <div class="product-prices">
+                  <p class="product-price">{{ product.currency }}{{ product.price }}</p>
+                  {% if product.original_price != product.price %}
+                  <p class="product-original-price">{{ product.currency }}{{ product.original_price }}</p>
+                  {% endif %}
+                </div>
+              </div>
+              <a href="{{ product.url }}" class="product-cta" target="_blank">View Product</a>
+            </td>
+            {% endfor %}
+          -->
+
+          <!-- ===================== DIVIDER ===================== -->
+          <tr>
+            <td style="padding: 24px 0 0;">
+              <div class="divider"></div>
+            </td>
+          </tr>
+
+          <!-- ===================== FOOTER ===================== -->
+          <tr>
+            <td class="footer">
+              <p>{{ store.name }} &bull; {{ store.address }}</p>
+              <p>
+                <a href="{{ store.url }}">Visit our store</a> &bull;
+                <a href="{{ store.privacy_url }}">Privacy Policy</a>
+              </p>
+              <p class="unsubscribe">
+                You received this email because you opted in at {{ store.url }}.<br />
+                <a href="{{ user.unsubscribe_url }}">Unsubscribe</a> &bull;
+                <a href="{{ user.preferences_url }}">Manage Preferences</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        <!-- /Email Container -->
+
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
