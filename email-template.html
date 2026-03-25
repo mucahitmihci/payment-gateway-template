@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="x-apple-disable-message-reformatting" />
-  <title>{{ email.subject }}</title>
+  <title>{{email.subject|Our latest picks for you}}</title>
   <!--[if mso]>
   <noscript>
     <xml>
@@ -47,22 +47,19 @@
 
     /* Product Card */
     .product-card { width: 33.33%; vertical-align: top; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
-    .product-card-inner { padding: 0; }
     .product-image-wrap { display: block; width: 100%; overflow: hidden; border-radius: 8px 8px 0 0; }
     .product-image-wrap img { width: 100%; height: 160px; object-fit: cover; display: block; }
     .product-info { padding: 12px; }
-    .product-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin: 0 0 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .product-name { font-family: Arial, sans-serif; font-size: 13px; font-weight: 600; color: #1a1a2e; margin: 0 0 6px; line-height: 1.4; }
     .product-prices { margin: 0 0 10px; }
     .product-price { font-family: Arial, sans-serif; font-size: 15px; font-weight: 700; color: #e11d48; margin: 0; }
     .product-original-price { font-family: Arial, sans-serif; font-size: 12px; color: #9ca3af; text-decoration: line-through; margin: 2px 0 0; }
     .product-discount-badge { display: inline-block; background-color: #fef2f2; color: #e11d48; font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-bottom: 10px; }
     .product-cta { display: block; width: 100%; background-color: #1a1a2e; color: #ffffff !important; font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; text-align: center; text-decoration: none; padding: 8px 4px; border-radius: 0 0 6px 6px; letter-spacing: 0.5px; }
-    .product-cta:hover { background-color: #16213e; }
 
-    /* Single featured product */
+    /* Featured product */
     .product-featured { padding: 24px 40px; }
     .product-featured-card { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
-    .product-featured-card table { width: 100%; border-collapse: collapse; }
     .product-featured-image { width: 220px; padding: 0; vertical-align: top; }
     .product-featured-image img { width: 220px; height: 220px; object-fit: cover; display: block; }
     .product-featured-details { padding: 24px 20px; vertical-align: middle; }
@@ -112,8 +109,9 @@
           <!-- ===================== HEADER ===================== -->
           <tr>
             <td class="header">
-              <a href="{{ store.url }}" target="_blank">
-                <img src="{{ store.logo_url }}" alt="{{ store.name }}" width="140" />
+              <!-- {{store.logo_url}} — upload your logo via the Images button and paste the URL here -->
+              <a href="{{store.url}}" target="_blank">
+                <img src="{{store.logo_url}}" alt="{{store.name|Our Store}}" width="140" />
               </a>
             </td>
           </tr>
@@ -121,31 +119,35 @@
           <!-- ===================== HERO ===================== -->
           <tr>
             <td class="hero">
-              <h1>{{ email.headline | default: "Products picked just for you" }}</h1>
-              <p>{{ email.subheadline | default: "Discover our latest recommendations based on your interests." }}</p>
+              <h1>{{email.headline|Products picked just for you}}</h1>
+              <p>{{email.subheadline|Discover our latest recommendations based on your interests.}}</p>
             </td>
           </tr>
 
-          <!-- ===================== FEATURED PRODUCT ===================== -->
+          <!-- ===================== FEATURED PRODUCT (products[0]) =====================
+               Architect dynamic content type: Browsed items / Recommended items
+               Replace products[0].* with the attribute names from
+               "Add Dynamic Content > Browsed items / Cart items / Purchased items"
+          ============================================================================ -->
           <tr>
             <td class="product-featured">
               <div class="product-featured-card">
                 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                   <tr>
                     <td class="product-featured-image">
-                      <a href="{{ products[0].url }}" target="_blank">
-                        <img src="{{ products[0].image_url }}" alt="{{ products[0].name }}" width="220" height="220" />
+                      <a href="{{products[0].url}}" target="_blank">
+                        <img src="{{products[0].image_url}}" alt="{{products[0].name}}" width="220" height="220" />
                       </a>
                     </td>
                     <td class="product-featured-details">
                       <span class="product-featured-tag">Featured Pick</span>
-                      <p class="product-featured-name">{{ products[0].name }}</p>
-                      <p class="product-featured-desc">{{ products[0].short_description }}</p>
-                      <p class="product-featured-price">{{ products[0].currency }}{{ products[0].price }}</p>
+                      <p class="product-featured-name">{{products[0].name}}</p>
+                      <p class="product-featured-desc">{{products[0].short_description}}</p>
+                      <p class="product-featured-price">{{products[0].currency}}{{products[0].price}}</p>
                       {% if products[0].original_price != products[0].price %}
-                      <p class="product-featured-original">{{ products[0].currency }}{{ products[0].original_price }}</p>
+                      <p class="product-featured-original">{{products[0].currency}}{{products[0].original_price}}</p>
                       {% endif %}
-                      <a href="{{ products[0].url }}" class="product-featured-btn" target="_blank">Shop Now</a>
+                      <a href="{{products[0].url}}" class="product-featured-btn" target="_blank">Shop Now</a>
                     </td>
                   </tr>
                 </table>
@@ -153,81 +155,82 @@
             </td>
           </tr>
 
-          <!-- ===================== PRODUCT GRID TITLE ===================== -->
+          <!-- ===================== SECTION TITLE ===================== -->
           <tr>
             <td class="section-title">
-              <h2>{{ section.title | default: "More You'll Love" }}</h2>
-              <p>{{ section.subtitle | default: "Hand-picked recommendations for you" }}</p>
+              <h2>{{section.title|More You'll Love}}</h2>
+              <p>{{section.subtitle|Hand-picked recommendations for you}}</p>
             </td>
           </tr>
 
-          <!-- ===================== PRODUCT GRID (3 columns) ===================== -->
+          <!-- ===================== PRODUCT GRID (products[1..3]) =====================
+               Architect dynamic content type: Browsed items / Recommended items
+               Each cell maps to one product slot from the dynamic content list.
+               Use "Add Dynamic Content" button to insert the correct attribute names.
+          ========================================================================== -->
           <tr>
             <td class="product-grid">
               <table role="presentation" class="product-row" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
 
-                  <!-- Product Card 1 -->
-                  {% assign p = products[1] %}
+                  <!-- ---- Product Card 1 (products[1]) ---- -->
                   <td class="product-card">
-                    <a class="product-image-wrap" href="{{ p.url }}" target="_blank">
-                      <img src="{{ p.image_url }}" alt="{{ p.name }}" />
+                    <a class="product-image-wrap" href="{{products[1].url}}" target="_blank">
+                      <img src="{{products[1].image_url}}" alt="{{products[1].name}}" />
                     </a>
                     <div class="product-info">
-                      <p class="product-name">{{ p.name }}</p>
-                      {% if p.discount_rate > 0 %}
-                      <span class="product-discount-badge">-{{ p.discount_rate }}%</span>
+                      <p class="product-name">{{products[1].name}}</p>
+                      {% if products[1].discount_rate > 0 %}
+                      <span class="product-discount-badge">-{{products[1].discount_rate}}%</span>
                       {% endif %}
                       <div class="product-prices">
-                        <p class="product-price">{{ p.currency }}{{ p.price }}</p>
-                        {% if p.original_price != p.price %}
-                        <p class="product-original-price">{{ p.currency }}{{ p.original_price }}</p>
+                        <p class="product-price">{{products[1].currency}}{{products[1].price}}</p>
+                        {% if products[1].original_price != products[1].price %}
+                        <p class="product-original-price">{{products[1].currency}}{{products[1].original_price}}</p>
                         {% endif %}
                       </div>
                     </div>
-                    <a href="{{ p.url }}" class="product-cta" target="_blank">View Product</a>
+                    <a href="{{products[1].url}}" class="product-cta" target="_blank">View Product</a>
                   </td>
 
-                  <!-- Product Card 2 -->
-                  {% assign p = products[2] %}
+                  <!-- ---- Product Card 2 (products[2]) ---- -->
                   <td class="product-card">
-                    <a class="product-image-wrap" href="{{ p.url }}" target="_blank">
-                      <img src="{{ p.image_url }}" alt="{{ p.name }}" />
+                    <a class="product-image-wrap" href="{{products[2].url}}" target="_blank">
+                      <img src="{{products[2].image_url}}" alt="{{products[2].name}}" />
                     </a>
                     <div class="product-info">
-                      <p class="product-name">{{ p.name }}</p>
-                      {% if p.discount_rate > 0 %}
-                      <span class="product-discount-badge">-{{ p.discount_rate }}%</span>
+                      <p class="product-name">{{products[2].name}}</p>
+                      {% if products[2].discount_rate > 0 %}
+                      <span class="product-discount-badge">-{{products[2].discount_rate}}%</span>
                       {% endif %}
                       <div class="product-prices">
-                        <p class="product-price">{{ p.currency }}{{ p.price }}</p>
-                        {% if p.original_price != p.price %}
-                        <p class="product-original-price">{{ p.currency }}{{ p.original_price }}</p>
+                        <p class="product-price">{{products[2].currency}}{{products[2].price}}</p>
+                        {% if products[2].original_price != products[2].price %}
+                        <p class="product-original-price">{{products[2].currency}}{{products[2].original_price}}</p>
                         {% endif %}
                       </div>
                     </div>
-                    <a href="{{ p.url }}" class="product-cta" target="_blank">View Product</a>
+                    <a href="{{products[2].url}}" class="product-cta" target="_blank">View Product</a>
                   </td>
 
-                  <!-- Product Card 3 -->
-                  {% assign p = products[3] %}
+                  <!-- ---- Product Card 3 (products[3]) ---- -->
                   <td class="product-card">
-                    <a class="product-image-wrap" href="{{ p.url }}" target="_blank">
-                      <img src="{{ p.image_url }}" alt="{{ p.name }}" />
+                    <a class="product-image-wrap" href="{{products[3].url}}" target="_blank">
+                      <img src="{{products[3].image_url}}" alt="{{products[3].name}}" />
                     </a>
                     <div class="product-info">
-                      <p class="product-name">{{ p.name }}</p>
-                      {% if p.discount_rate > 0 %}
-                      <span class="product-discount-badge">-{{ p.discount_rate }}%</span>
+                      <p class="product-name">{{products[3].name}}</p>
+                      {% if products[3].discount_rate > 0 %}
+                      <span class="product-discount-badge">-{{products[3].discount_rate}}%</span>
                       {% endif %}
                       <div class="product-prices">
-                        <p class="product-price">{{ p.currency }}{{ p.price }}</p>
-                        {% if p.original_price != p.price %}
-                        <p class="product-original-price">{{ p.currency }}{{ p.original_price }}</p>
+                        <p class="product-price">{{products[3].currency}}{{products[3].price}}</p>
+                        {% if products[3].original_price != products[3].price %}
+                        <p class="product-original-price">{{products[3].currency}}{{products[3].original_price}}</p>
                         {% endif %}
                       </div>
                     </div>
-                    <a href="{{ p.url }}" class="product-cta" target="_blank">View Product</a>
+                    <a href="{{products[3].url}}" class="product-cta" target="_blank">View Product</a>
                   </td>
 
                 </tr>
@@ -235,31 +238,19 @@
             </td>
           </tr>
 
-          <!-- ===================== SECOND PRODUCT ROW (optional loop) ===================== -->
-          <!--
-            To render a dynamic number of products using Insider's loop syntax:
+          <!-- ===================== CONDITIONAL BLOCK EXAMPLE =====================
+               Insider conditional syntax per the HTML editor docs:
+               {%if membership = "gold" %} ... {% endif %}
 
-            {% for product in products offset: 4 limit: 3 %}
-            <td class="product-card">
-              <a class="product-image-wrap" href="{{ product.url }}" target="_blank">
-                <img src="{{ product.image_url }}" alt="{{ product.name }}" />
-              </a>
-              <div class="product-info">
-                <p class="product-name">{{ product.name }}</p>
-                {% if product.discount_rate > 0 %}
-                <span class="product-discount-badge">-{{ product.discount_rate }}%</span>
-                {% endif %}
-                <div class="product-prices">
-                  <p class="product-price">{{ product.currency }}{{ product.price }}</p>
-                  {% if product.original_price != product.price %}
-                  <p class="product-original-price">{{ product.currency }}{{ product.original_price }}</p>
-                  {% endif %}
-                </div>
-              </div>
-              <a href="{{ product.url }}" class="product-cta" target="_blank">View Product</a>
-            </td>
-            {% endfor %}
-          -->
+               Example — show a banner only for VIP members:
+               {%if membership = "gold" %}
+               <tr>
+                 <td style="background:#f5f0ff;text-align:center;padding:16px;font-family:Arial,sans-serif;font-size:13px;color:#7c3aed;font-weight:700;">
+                   Exclusive VIP offer just for you!
+                 </td>
+               </tr>
+               {% endif %}
+          ====================================================================== -->
 
           <!-- ===================== DIVIDER ===================== -->
           <tr>
@@ -271,15 +262,16 @@
           <!-- ===================== FOOTER ===================== -->
           <tr>
             <td class="footer">
-              <p>{{ store.name }} &bull; {{ store.address }}</p>
+              <p>{{store.name}} &bull; {{store.address}}</p>
               <p>
-                <a href="{{ store.url }}">Visit our store</a> &bull;
-                <a href="{{ store.privacy_url }}">Privacy Policy</a>
+                <a href="{{store.url}}">Visit our store</a> &bull;
+                <a href="{{store.privacy_url}}">Privacy Policy</a>
               </p>
+              <!-- Unsubscribe link: use the "Add Unsubscribe Link" button in the editor toolbar -->
               <p class="unsubscribe">
-                You received this email because you opted in at {{ store.url }}.<br />
-                <a href="{{ user.unsubscribe_url }}">Unsubscribe</a> &bull;
-                <a href="{{ user.preferences_url }}">Manage Preferences</a>
+                You received this email because you opted in at {{store.url}}.<br />
+                <a href="{{unsubscribe_url}}">Unsubscribe</a> &bull;
+                <a href="{{preferences_url}}">Manage Preferences</a>
               </p>
             </td>
           </tr>
